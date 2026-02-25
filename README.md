@@ -1,5 +1,5 @@
 ![logo2](https://github.com/user-attachments/assets/425e7307-6204-4fa3-adf2-0606088e06de)
-
+![alt text](image.png)
 # Pemrograman Web Praktik
 ### Dosen Pengampu: Ikrimach, S.Kom., M.Cs.
 ### Asisten Dosen: Ridho Lestari Ardiansyah
