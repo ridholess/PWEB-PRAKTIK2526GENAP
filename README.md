@@ -4,7 +4,7 @@
 ### Dosen Pengampu: Ikrimach, S.Kom., M.Cs.
 ### Asisten Dosen: Ridho Lestari Ardiansyah
 
-Mata kuliah yang mengimplementasi konsep dasar web services menggunakan framework Flask
+Mata kuliah yang mengimplementasi konsep dasar web services menggunakan framework php native
 
 1. Kelas I - Sistem Informasi 
 - Jadwal: Rabu, 12.50 – 14.30
