@@ -15,5 +15,8 @@ Mata kuliah yang mengimplementasi konsep dasar web services menggunakan php nati
   
 ### Materi
 
-- **<a href="https://github.com/ridholess/PWEB-PRAKTIK-25/tree/week-1">Week 1:</a>** Perkenalan, Silabus, Pengenalan Konsep Web dan Server
-- **<a href="https://github.com/ridholess/PWEB-PRAKTIK-25/tree/week-2">Week 2:</a>** Konsep HTML5 Dasar
+- **<a href="https://github.com/ridholess/PWEB-PRAKTIK2526GENAP/tree/week-1">Week 1:</a>** Perkenalan, Silabus, Pengenalan Konsep Web dan Server
+- **<a href="https://github.com/ridholess/PWEB-PRAKTIK2526GENAP/tree/week-2">Week 2:</a>** Konsep HTML5 Dasar
+- **<a href="https://github.com/ridholess/PWEB-PRAKTIK2526GENAP/tree/week-3">Week 3:</a>** CSS3 & UI/UX Dasar
+- **<a href="https://github.com/ridholess/PWEB-PRAKTIK2526GENAP/tree/week-4">Week 4:</a>** CSS Framework
+- **<a href="https://github.com/ridholess/PWEB-PRAKTIK2526GENAP/tree/week-5">Week 5:</a>** Web Server & Pengenalan PHP Dasar
