@@ -4,58 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Belajar Bootstrap</title>
+    <!-- CSS Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Styles CSS -->
+     <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body class="bg-linear-1">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <a class="navbar-brand text-white" href="#">Seseorang</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light position-relative">
+        <a class="navbar-brand text-white position-absolute" href="#" style="left: 15px;">Seseorang</a>
+
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link text-white" href="#">Beranda <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Tentang Saya</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="#">Kontak</a>
-            </li>
+
+        <div class="collapse navbar-collapse w-100 justify-content-center" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="#">Beranda <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Tentang Saya</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Kontak</a>
+                </li>
             </ul>
         </div>
     </nav>
     <!-- End of Navbar -->
 
     <!-- Hero Section -->
-    <div class="jumbotron">
-        <h1 class="display-4">Halo, saya seseorang</h1>
-        <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus saepe doloremque suscipit.</p>
-        <hr class="my-4">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <a class="btn btn-info btn-md" href="#" role="button">Kontak Saya</a>
+    <div class="jumbotron bg-transparent">
+        <h1 class="display-4 text-white">Halo, saya seseorang</h1>
+        <p class="lead text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus saepe doloremque suscipit.</p>
+        <hr class="my-4 bg-white">
+        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a class="btn btn-md bg-linear-2 text-white" href="#" role="button">Kontak Saya</a>
     </div>
     <!-- End of Hero Section -->
 
     <!-- Card Section -->
     <div class="container">
-        <div class="card-wrapper d-flex flex-row justify-content-between mb-4">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="row mb-4">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-linear-3 h-100">
+                    <img src="https://picsum.photos/seed/technology/400/250" class="card-img-top" alt="Gambar teknologi dari Picsum">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-white">Teknologi Modern</h5>
+                        <p class="card-text text-white mb-4">Perkembangan teknologi modern semakin pesat dan memberikan banyak inovasi yang memudahkan kehidupan sehari-hari.</p>
+                        <a href="#" class="btn bg-linear-2 text-white mt-auto">Baca Selengkapnya</a>
+                    </div>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-linear-3 h-100">
+                    <img src="https://picsum.photos/seed/programming/400/250" class="card-img-top" alt="Gambar programming dari Picsum">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-white">Dunia Programming</h5>
+                        <p class="card-text text-white mb-4">Mempelajari dan menguasai berbagai bahasa pemrograman untuk membangun aplikasi dan website yang interaktif.</p>
+                        <a href="#" class="btn bg-linear-2 text-white mt-auto">Mulai Belajar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-linear-3 h-100">
+                    <img src="https://picsum.photos/seed/workspace/400/250" class="card-img-top" alt="Gambar workspace dari Picsum">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-white">Ruang Kerja Ideal</h5>
+                        <p class="card-text text-white mb-4">Desain ruang kerja yang nyaman, rapi, dan fungsional sangat penting untuk menjaga fokus dan produktivitas harian.</p>
+                        <a href="#" class="btn bg-linear-2 text-white mt-auto">Lihat Inspirasi</a>
+                    </div>
                 </div>
             </div>
         </div>
