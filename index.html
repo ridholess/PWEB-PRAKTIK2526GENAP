@@ -1,51 +1,69 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Saya | Web Programming Class</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Belajar Bootstrap</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 <body>
-
-    <header class="navbar">
-        <div class="logo">MyPortfolio</div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Contact</a></li>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand text-white" href="#">Seseorang</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="#">Beranda <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Tentang Saya</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">Kontak</a>
+            </li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
+    <!-- End of Navbar -->
 
-    <main class="container">
-        <section class="hero">
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1565687981296-535f09db714e?auto=format&fit=crop&w=480&h=480&q=80" alt="Foto Profil" width="480" height="480">
+    <!-- Hero Section -->
+    <div class="jumbotron">
+        <h1 class="display-4">Halo, saya seseorang</h1>
+        <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus saepe doloremque suscipit.</p>
+        <hr class="my-4">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <a class="btn btn-info btn-md" href="#" role="button">Kontak Saya</a>
+    </div>
+    <!-- End of Hero Section -->
+
+    <!-- Card Section -->
+    <div class="container">
+        <div class="card-wrapper d-flex flex-row justify-content-between mb-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
             </div>
-            <div class="hero-content">
-                <h1>Halo, Saya Mahasiswa Web</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Esse, minima? Accusamus, nam aut.</p>
-                <button class="btn">Download CV</button>
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
             </div>
-        </section>
+        </div>
+    </div>
+    <!-- End of Card Section -->
 
-        <section class="skills">
-            <h2>Keahlian</h2>
-            <div class="skill-grid">
-                <div class="skill-card">HTML5</div>
-                <div class="skill-card">CSS3</div>
-                <div class="skill-card">PHP</div>
-                <div class="skill-card">UI/UX</div>
-            </div>
-        </section>
-    </main>
 
-    <footer class="footer">
-        <p>&copy; 2026 Praktikum Pemrograman Web</p>
-    </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </body>
 </html>
