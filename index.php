@@ -18,21 +18,9 @@ $jasa = [
         "title" => "Back-End Logic",
         "desc" => "Lorem ipsum dolor sit amet.",
         "icon" => "⚙️"
-    ],
-    [
-        "title" => "Back-End Logic",
-        "desc" => "Lorem ipsum dolor sit amet.",
-        "icon" => "⚙️"
-    ],
-    [
-        "title" => "Back-End Logic",
-        "desc" => "Lorem ipsum dolor sit amet.",
-        "icon" => "⚙️"
     ]
 ];
 ?>
-
-
 
 
 
