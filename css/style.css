@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* background-color: #F7EDE8; */
+    font-family: Montserrat Alternates, sans-serif;
+}
+
+.card-neo {
+    background-color: #EDF3F7; 
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.80) !important;
+    border-radius: 16px;
+}
