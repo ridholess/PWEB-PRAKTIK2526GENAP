@@ -15,16 +15,16 @@ $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
 $per_page = (int) ($_GET['per_page'] ?? 5);
 $page = max(1, (int) ($_GET['page'] ?? 1));
 
-$allowed_sorts = ['nama', 'npm', 'prodi', 'angkatan'];
+$allowed_sorts = ['nama', 'npm', 'divisi', 'angkatan'];
 if (!in_array($sort, $allowed_sorts))
     $sort = 'nama';
 $per_page = in_array($per_page, [5, 10, 25, 50]) ? $per_page : 10;
 $search_like = '%' . mysqli_real_escape_string($koneksi, $search) . '%';
 
-$count_sql = "SELECT COUNT(*) AS total FROM student
+$count_sql = "SELECT COUNT(*) AS total FROM member
               WHERE nama LIKE '$search_like'
                  OR npm  LIKE '$search_like'
-                 OR prodi LIKE '$search_like'
+                 OR divisi LIKE '$search_like'
                  OR angkatan LIKE '$search_like'";
 $count_res = mysqli_query($koneksi, $count_sql);
 $total_rows = (int) mysqli_fetch_assoc($count_res)['total'];
@@ -32,10 +32,10 @@ $total_pages = max(1, (int) ceil($total_rows / $per_page));
 $page = min($page, $total_pages);
 $offset = ($page - 1) * $per_page;
 
-$data_sql = "SELECT nama, npm, prodi, angkatan FROM student
+$data_sql = "SELECT nama, npm, divisi, angkatan FROM member
              WHERE nama LIKE '$search_like'
                 OR npm  LIKE '$search_like'
-                OR prodi LIKE '$search_like'
+                OR divisi LIKE '$search_like'
                 OR angkatan LIKE '$search_like'
              ORDER BY $sort $dir
              LIMIT $per_page OFFSET $offset";
@@ -122,7 +122,7 @@ function sort_icon(string $col): string
     <!-- Navbar -->
     <nav class="flex items-center justify-between px-6 py-4 border-b-2 border-black">
         <span class="text-black font-bold text-base tracking-wide">
-            Selamat datang, <span class="italic text-[#E8715A]">.....</span> 👋
+            Selamat datang, <span class="italic text-[#E8715A]">&hellip;</span> 👋
         </span>
         <span id="btn-logout"
             class="bg-[#000] text-white text-sm font-semibold px-6 py-3 rounded-md shadow-[4px_4px_0px_#E8715A] hover:shadow-[0px_0px_0px] transition-all duration-300 ease-in-out no-underline cursor-pointer">
@@ -133,8 +133,8 @@ function sort_icon(string $col): string
     <!-- Main Content -->
     <main class="flex-1 px-6 py-10 max-w-6xl mx-auto w-full">
 
-        <h1 class="text-3xl font-black italic tracking-widest text-black mb-2">Data Mahasiswa</h1>
-        <p class="text-[#7A6E6A] text-sm mb-8">Daftar seluruh mahasiswa yang terdaftar dalam sistem Portal UTY.</p>
+        <h1 class="text-3xl font-black italic tracking-widest text-black mb-2">Data Anggota Komunitas</h1>
+        <p class="text-[#7A6E6A] text-sm mb-8">Daftar anggota komunitas Teknologi Yogyakarta</p>
 
         <div class="bg-white border-2 border-black shadow-[6px_6px_0px_#E8715A] rounded-xl overflow-hidden">
 
@@ -155,7 +155,7 @@ function sort_icon(string $col): string
                             d="M21 21l-4.35-4.35M17 11A6 6 0 105 11a6 6 0 0012 0z" />
                     </svg>
                     <input id="search-input" type="text" name="search" value="<?= htmlspecialchars($search) ?>"
-                        placeholder="Cari nama, npm, prodi..." autocomplete="off"
+                        placeholder="Cari nama, npm, divisi..." autocomplete="off"
                         class="w-full pl-9 pr-4 py-2.5 border-2 border-black rounded-md text-sm font-medium text-black placeholder-[#7A6E6A] outline-none shadow-[3px_3px_0px_rgba(0,0,0,0.15)] focus:shadow-[3px_3px_0px_#E8715A] transition-all duration-200 bg-[#F7EDE8]" />
                 </div>
 
@@ -184,7 +184,7 @@ function sort_icon(string $col): string
                         <tr>
                             <th class="px-6 py-4 font-black text-black uppercase tracking-wider text-xs w-12">#</th>
                             <?php
-                            $cols = ['nama' => 'Nama', 'npm' => 'NPM', 'prodi' => 'Prodi', 'angkatan' => 'Angkatan'];
+                            $cols = ['nama' => 'Nama', 'npm' => 'NPM', 'divisi' => 'divisi', 'angkatan' => 'Angkatan'];
                             foreach ($cols as $col => $label):
                                 ?>
                                 <th
@@ -211,18 +211,18 @@ function sort_icon(string $col): string
                                     <?= $no++ ?>
                                 </td>
                                 <td class="px-6 py-4 text-black font-semibold">
-                                    .....
+                                    &hellip;
                                 </td>
                                 <td class="px-6 py-4 text-black font-mono">
-                                    .....
+                                    &hellip;
                                 </td>
                                 <td class="px-6 py-4 text-black">
-                                    .....
+                                    &hellip;
                                 </td>
                                 <td class="px-6 py-4">
                                     <span
                                         class="inline-block bg-[#000] text-white text-xs font-bold px-3 py-1 rounded-full shadow-[2px_2px_0px_#E8715A]">
-                                        .....
+                                        &hellip;
                                     </span>
                                 </td>
                             </tr>

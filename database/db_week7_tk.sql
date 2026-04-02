@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 02, 2026 at 11:44 AM
+-- Generation Time: Apr 02, 2026 at 01:44 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,35 +18,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_week7`
+-- Database: `db_week7_tk`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student`
+-- Table structure for table `member`
 --
 
-CREATE TABLE `student` (
+CREATE TABLE `member` (
   `id` int NOT NULL,
   `nama` varchar(255) NOT NULL,
   `npm` varchar(11) NOT NULL,
-  `prodi` varchar(50) NOT NULL,
+  `divisi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `angkatan` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `student`
+-- Dumping data for table `member`
 --
 
-INSERT INTO `student` (`id`, `nama`, `npm`, `prodi`, `angkatan`) VALUES
-(1, 'Sandhika Galih', '5240411001', 'Informatika', '2024'),
-(2, 'Daniel Baskara Putra', '5240411002', 'Ilmu Komunikasi', '2024'),
-(3, 'Brigitta Sriulina Beru', '5240411003', 'Sastra Inggris', '2024'),
-(4, 'Akhdiyat Duta Modjo', '5240411004', 'Mekanisasi Pertanian', '2001'),
-(5, 'Feby Putri Nilam', '5240411005', 'Ilmu Hubungan Internasional', '2002'),
-(6, 'Fiersa Besari', '5230411006', 'Sarjana Sastra', '2002'),
-(7, 'Theresia Margaretha Gultom', '5230411007', 'Psikologi', '2023');
+INSERT INTO `member` (`id`, `nama`, `npm`, `divisi`, `angkatan`) VALUES
+(1, 'Sandhika Galih', '5240411001', 'AI Developer', '2024'),
+(2, 'Daniel Baskara Putra', '5240411002', 'Bussiness Development', '2024'),
+(3, 'Brigitta Sriulina Beru', '5240411003', 'Content Marketing', '2024'),
+(4, 'Akhdiyat Duta Modjo', '5240411004', 'Graphic Design', '2001'),
+(5, 'Feby Putri Nilam', '5240411005', 'UI/UX', '2002'),
+(6, 'Fiersa Besari', '5230411006', 'Frontend Develoepr', '2002'),
+(7, 'Theresia Margaretha Gultom', '5230411007', 'Backend Developer', '2023');
 
 -- --------------------------------------------------------
 
@@ -75,9 +75,9 @@ INSERT INTO `user` (`id`, `nama`, `email`, `password`) VALUES
 --
 
 --
--- Indexes for table `student`
+-- Indexes for table `member`
 --
-ALTER TABLE `student`
+ALTER TABLE `member`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -91,9 +91,9 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `student`
+-- AUTO_INCREMENT for table `member`
 --
-ALTER TABLE `student`
+ALTER TABLE `member`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
