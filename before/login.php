@@ -95,7 +95,7 @@ if (isset($_POST["submit"])) {
                         required
                         class="w-full bg-white rounded-md border-2 border-[#000] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.80)] active:shadow-[0px_0px_0px] px-5 py-4 pr-14 text-black placeholder-[#000] text-base outline-none transition-all duration-300 ease-in-out" />
                     <button type="button" id="btn-toggle-password" onclick="togglePassword()"
-                        class="absolute right-4 top-1/2 -translate-y-1/2 text-[#000] hover:text-black transition-colors"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-[#000] hover:text-black transition-colors cursor-pointer"
                         aria-label="Tampilkan password">
                         <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
