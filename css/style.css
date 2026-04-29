@@ -1,0 +1,28 @@
+body {
+    background-color: #F7EDE8!important;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F7EDE8;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E8715A;
+    border-radius: 3px;
+}
+
+tbody tr:hover {
+    background-color: #fdf0ec;
+}
+
+.page-btn-active {
+    background-color: #000;
+    color: #fff;
+    box-shadow: 3px 3px 0px #E8715A;
+}
