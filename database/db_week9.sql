@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 02, 2026 at 11:44 AM
+-- Generation Time: May 05, 2026 at 07:08 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_week7`
+-- Database: `db_week9`
 --
 
 -- --------------------------------------------------------
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `student` (
   `id` int NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `npm` varchar(11) NOT NULL,
-  `prodi` varchar(50) NOT NULL,
-  `angkatan` varchar(5) NOT NULL
+  `nama` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `npm` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `prodi` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `angkatan` varchar(5) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -56,19 +56,20 @@ INSERT INTO `student` (`id`, `nama`, `npm`, `prodi`, `angkatan`) VALUES
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `nama` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(12) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `email`, `password`) VALUES
-(1, 'Sosok Admin', 'admin@mail.com', '$2y$10$fMf7R8S1FUoBqxVKqeE6weqK7sceZ0S/dEFi56WhAQS0Pyfst4.ku'),
-(2, 'Sosok Staff', 'staff@mail.com', '$2y$10$iDO6jI4HGUCXNvkUEmj5kuoO7COztLt7LiN2M0DS260JtQtCNEO/u'),
-(3, 'Sosok Member', 'member@mail.com', '$2y$10$1lqlKCrSGu9AJ3wVJgYSGu6Hs5dcBUrJgKruGy46SpBpVrlpcwLjy');
+INSERT INTO `user` (`id`, `nama`, `username`, `email`, `password`) VALUES
+(1, 'Sosok Admin', 'adminuty', 'admin@mail.com', '$2y$10$fMf7R8S1FUoBqxVKqeE6weqK7sceZ0S/dEFi56WhAQS0Pyfst4.ku'),
+(2, 'Sosok Staff', 'staffuty', 'staff@mail.com', '$2y$10$iDO6jI4HGUCXNvkUEmj5kuoO7COztLt7LiN2M0DS260JtQtCNEO/u'),
+(3, 'Sosok Member', 'memberuty', 'member@mail.com', '$2y$10$1lqlKCrSGu9AJ3wVJgYSGu6Hs5dcBUrJgKruGy46SpBpVrlpcwLjy');
 
 --
 -- Indexes for dumped tables

@@ -1,186 +1,167 @@
 <?php
+session_start();
 require 'koneksi.php';
 
-$search = trim($_GET['search'] ?? '');
-$sort = $_GET['sort'] ?? 'nama';
-$dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
-$per_page = (int) ($_GET['per_page'] ?? 5);
-$page = max(1, (int) ($_GET['page'] ?? 1));
+if (isset($_SESSION["login"])) {
+    header("Location: ./dashboard.php");
+    exit;
+}
 
-$allowed_sorts = ['nama', 'npm', 'prodi', 'angkatan'];
-if (!in_array($sort, $allowed_sorts))
-    $sort = 'nama';
-$per_page = in_array($per_page, [5, 10, 25, 50]) ? $per_page : 10;
-$search_like = '%' . mysqli_real_escape_string($koneksi, $search) . '%';
+$error = false;
+if (isset($_POST["submit"])) {
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-$count_sql = "SELECT COUNT(*) AS total FROM student
-              WHERE nama LIKE '$search_like'
-                 OR npm  LIKE '$search_like'
-                 OR prodi LIKE '$search_like'
-                 OR angkatan LIKE '$search_like'";
-$count_res = mysqli_query($koneksi, $count_sql);
-$total_rows = (int) mysqli_fetch_assoc($count_res)['total'];
-$total_pages = max(1, (int) ceil($total_rows / $per_page));
-$page = min($page, $total_pages);
-$offset = ($page - 1) * $per_page;
+    $result = mysqli_query($koneksi, "SELECT * FROM user WHERE email = '$email'");
 
-$data_sql = "SELECT id, nama, npm, prodi, angkatan FROM student
-             WHERE nama LIKE '$search_like'
-                OR npm  LIKE '$search_like'
-                OR prodi LIKE '$search_like'
-                OR angkatan LIKE '$search_like'
-             ORDER BY $sort $dir
-             LIMIT $per_page OFFSET $offset";
-$data_res = mysqli_query($koneksi, $data_sql);
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
 
-require 'function.php';
+        if (password_verify($password, $row["password"])) {
+            $_SESSION["login"] = true;
+            $_SESSION["nama_user"] = $row["nama"];
+            header("Location: ./dashboard.php");
+            exit;
+        }
+    }
+    $error = true;
+}
 
 ?>
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Login Page</title>
     <link rel="icon" type="image/png"
         href="https://res.cloudinary.com/dsirus0pz/image/upload/v1774681310/uty-campus_i8pc7v.png">
+    <!-- Tailwind Css -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Font Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        body {
+            background-color: #F7EDE8;
+            font-family: 'Montserrat Alternates', sans-serif;
+        }
+    </style>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body>
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-end px-6 py-4">
+        <!-- <a href="./" id="btn-close" class="text-black hover:opacity-60 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </a> -->
+
+        <span id="btn-daftar"
+            class="bg-[#000] text-white text-sm font-semibold px-6 py-3 rounded-md cursor-pointer shadow-[4px_4px_0px_#E8715A] hover:shadow-[0px_0px_0px] transition-all duration-300 ease-in-out">
+            Daftar Sekarang
+        </span>
+    </nav>
+    <!-- End of Navbar -->
 
     <!-- Main Content -->
-    <main class="flex-1 px-6 py-10 max-w-6xl mx-auto w-full">
+    <main class="flex-1 flex flex-col items-center justify-center px-4 mt-16">
+        <div class="w-full max-w-md">
 
-        <h1 class="text-3xl font-black italic tracking-widest text-black mb-2 flex items-center gap-3">
-            Data Mahasiswa 
-            <span class="bg-[#000] text-white text-xs font-medium italic px-3 py-1.5 rounded-md shadow-[2px_2px_0px_#E8715A] align-middle">Week-8</span>
-        </h1>
-        <p class="text-[#7A6E6A] text-sm mb-8">Daftar seluruh mahasiswa yang terdaftar dalam sistem Portal UTY.</p>
+            <h1 class="text-center text-4xl font-black italic tracking-widest text-black mb-10">
+                Loginkan
+            </h1>
 
-        <div class="bg-white border-2 border-black shadow-[6px_6px_0px_#E8715A] rounded-xl overflow-hidden">
+            <form id="form-login" action="" method="POST" class="space-y-4">
+                <?php if ($error): ?>
+                    <div class="alert alert-danger font-italic text-center" role="alert">
+                        Email / Password salah!
+                    </div>
+                <?php endif; ?>
 
-            <!-- Controls: Search + Per-Page (submitted as GET form) -->
-            <form method="GET" action="index.php" id="filter-form"
-                class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 py-4 border-b-2 border-black">
-                <!-- Preserve sort & dir -->
-                <input type="hidden" name="sort" value="<?= htmlspecialchars($sort) ?>">
-                <input type="hidden" name="dir" value="<?= htmlspecialchars($dir) ?>">
-                <input type="hidden" name="page" value="1">
-
-                <!-- Search -->
-                <div class="relative w-full sm:w-72">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7A6E6A]"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M21 21l-4.35-4.35M17 11A6 6 0 105 11a6 6 0 0012 0z" />
-                    </svg>
-                    <input id="search-input" type="text" name="search" value="<?= htmlspecialchars($search) ?>"
-                        placeholder="Cari nama, npm, prodi..." autocomplete="off"
-                        class="w-full pl-9 pr-4 py-2.5 border-2 border-black rounded-md text-sm font-medium text-black placeholder-[#7A6E6A] outline-none shadow-[3px_3px_0px_rgba(0,0,0,0.15)] focus:shadow-[3px_3px_0px_#E8715A] transition-all duration-200 bg-[#F7EDE8]" />
+                <div>
+                    <input id="input-email" type="email" name="email" placeholder="Email" autocomplete="off" required
+                        class="w-full bg-white rounded-md border-2 border-[#000] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.80)] active:shadow-[0px_0px_0px] px-5 py-4 pr-14 text-black placeholder-[#000] text-base outline-none transition-all duration-300 ease-in-out" />
                 </div>
 
-                <!-- Per-Page + Submit -->
-                <div class="flex items-center gap-2 text-sm text-[#7A6E6A] font-medium">
-                    <span>Tampilkan</span>
-                    <select name="per_page" id="per-page-select"
-                        onchange="document.getElementById('filter-form').submit()"
-                        class="border-2 border-black px-3 py-2 rounded-md text-black font-semibold bg-[#F7EDE8] outline-none shadow-[2px_2px_0px_rgba(0,0,0,0.15)] cursor-pointer">
-                        <?php foreach ([5, 10, 25, 50] as $opt): ?>
-                            <option value="<?= $opt ?>" <?= $per_page === $opt ? 'selected' : '' ?>><?= $opt ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <span>data</span>
-                    <a href="add_data.php"
-                        class="ml-2 bg-[#000] text-white text-xs font-bold px-4 py-2 rounded-md shadow-[2px_2px_0px_#E8715A] hover:shadow-[0px_0px_0px] transition-all duration-200 no-underline inline-block">
-                        Tambah Data
-                    </a>
+                <div class="relative">
+                    <input id="input-password" type="password" name="password" placeholder="Password" autocomplete="off"
+                        required
+                        class="w-full bg-white rounded-md border-2 border-[#000] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.80)] active:shadow-[0px_0px_0px] px-5 py-4 pr-14 text-black placeholder-[#000] text-base outline-none transition-all duration-300 ease-in-out" />
+                    <button type="button" id="btn-toggle-password" onclick="togglePassword()"
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-[#000] hover:text-black transition-colors cursor-pointer"
+                        aria-label="Tampilkan password">
+                        <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <svg id="icon-eye-off" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.348-3.879M6.878 6.878A9.96 9.96 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.97 9.97 0 01-1.86 3.048M6.878 6.878L3 3m3.878 3.878l10.243 10.243M3 3l18 18" />
+                        </svg>
+                    </button>
                 </div>
+
+                <div class="text-left">
+                    <span id="link-lupa-password"
+                        class="text-[#E8715A] text-sm font-semibold hover:underline cursor-pointer">
+                        Lupa password?
+                    </span>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" name="submit" type="password" id="btn-masuk"
+                        class="w-full bg-[#000] text-white font-black text-base tracking-widest py-4 rounded-md cursor-pointer shadow-[6px_6px_0px_#E8715A] hover:shadow-[0px_0px_0px] transition-all duration-300 ease-in-out">
+                        Masuk
+                    </button>
+                </div>
+
             </form>
 
-            <!-- Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="bg-[#F7EDE8] border-b-2 border-black">
-                        <tr>
-                            <th class="px-6 py-4 font-black text-black uppercase tracking-wider text-xs w-12">#</th>
-                            <?php
-                            $cols = ['nama' => 'Nama', 'npm' => 'NPM', 'prodi' => 'Prodi', 'angkatan' => 'Angkatan'];
-                            foreach ($cols as $col => $label):
-                                ?>
-                                <th
-                                    class="px-6 py-4 font-black uppercase tracking-wider text-xs cursor-pointer select-none transition-colors <?= $sort === $col ? 'text-[#E8715A]' : 'text-black hover:text-[#E8715A]' ?>">
-                                    <a href="<?= sort_url($col) ?>"
-                                        class="flex items-center gap-1 no-underline text-inherit">
-                                        <?= $label ?> <span><?= sort_icon($col) ?></span>
-                                    </a>
-                                </th>
-                            <?php endforeach; ?>
-                            <th class="px-6 py-4 font-black text-black uppercase tracking-wider text-xs">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <?php if ($total_rows === 0): ?>
-                            <tr>
-                                <td colspan="6" class="text-center py-16 text-[#7A6E6A] font-semibold italic">
-                                    Tidak ada data yang ditemukan.
-                                </td>
-                            </tr>
-                        <?php else: ?>
-                            <?php $no = $offset + 1; ?>
-                            <?php while ($row = mysqli_fetch_assoc($data_res)): ?>
-                                <tr class="transition-colors duration-150">
-                                    <td class="px-6 py-4 text-[#7A6E6A] font-semibold">
-                                        <?= $no++ ?>
-                                    </td>
-                                    <td class="px-6 py-4 text-black font-semibold">
-                                        <?= htmlspecialchars($row['nama']) ?>
-                                    </td>
-                                    <td class="px-6 py-4 text-black font-mono">
-                                        <?= htmlspecialchars($row['npm']) ?>
-                                    </td>
-                                    <td class="px-6 py-4 text-black">
-                                        <?= htmlspecialchars($row['prodi']) ?>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="inline-block bg-[#000] text-white text-xs font-bold px-3 py-1 rounded-full shadow-[2px_2px_0px_#E8715A]">
-                                            <?= htmlspecialchars($row['angkatan']) ?>
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-2">
-                                            <a href="edit_data.php?id=<?= $row['id'] ?>"
-                                                class="bg-[#007BFF] text-white text-xs font-bold px-3 py-1 rounded-md shadow-[2px_2px_0px_rgba(0,123,255,0.5)] hover:shadow-[0px_0px_0px] transition-all duration-200 no-underline">
-                                                Edit
-                                            </a>
-                                            <a href="delete_data.php?id=<?= $row['id'] ?>"
-                                                class="bg-[#DC3545] text-white text-xs font-bold px-3 py-1 rounded-md shadow-[2px_2px_0px_rgba(220,53,69,0.5)] hover:shadow-[0px_0px_0px] transition-all duration-200 no-underline"
-                                                onclick="return confirm('Yakin ingin menghapus data ini?');">
-                                                Delete
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+            <p class="text-center text-[#7A6E6A] text-sm mt-8 leading-relaxed">
+                Dengan masuk ke <span class="italic">Responsi Week 7</span>, anda menyetujui
+                <span id="link-syarat" class="text-[#E8715A] font-semibold hover:underline cursor-pointer">Syarat dan
+                    Ketentuan</span>
+                serta
+                <span id="link-privasi" class="text-[#E8715A] font-semibold hover:underline cursor-pointer">Kebijakan
+                    Privasi</span>
+                kami.
+            </p>
 
-            <!-- Footer: Info + Pagination -->
-            <?php require './templates/footerDataTable.php'; ?>
         </div>
-
     </main>
+    <!-- End of Main Content -->
+
+    <!-- Script -->
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('input-password');
+            const iconEye = document.getElementById('icon-eye');
+            const iconEyeOff = document.getElementById('icon-eye-off');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                iconEye.classList.add('hidden');
+                iconEyeOff.classList.remove('hidden');
+            } else {
+                input.type = 'password';
+                iconEye.classList.remove('hidden');
+                iconEyeOff.classList.add('hidden');
+            }
+        }
+    </script>
+    <!-- End of Script -->
 
 </body>
 
