@@ -9,10 +9,10 @@ if (isset($_SESSION["login"])) {
 
 $error = false;
 if (isset($_POST["submit"])) {
-    $email = $_POST["email"];
+    $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $result = mysqli_query($koneksi, "SELECT * FROM user WHERE email = '$email'");
+    $result = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username'");
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
@@ -88,7 +88,7 @@ if (isset($_POST["submit"])) {
                 <?php endif; ?>
 
                 <div>
-                    <input id="input-email" type="email" name="email" placeholder="Email" autocomplete="off" required
+                    <input id="input-email" type="text" name="username" placeholder="Username" autocomplete="off" required
                         class="w-full bg-white rounded-md border-2 border-[#000] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.80)] active:shadow-[0px_0px_0px] px-5 py-4 pr-14 text-black placeholder-[#000] text-base outline-none transition-all duration-300 ease-in-out" />
                 </div>
 
