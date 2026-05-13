@@ -1,31 +1,27 @@
-<div
-    class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 py-4 border-t-2 border-black bg-[#F7EDE8]">
+<div class="table-footer">
 
-    <!-- Info -->
-    <p class="text-sm text-[#7A6E6A] font-medium">
+    <!-- Info Table -->
+    <p class="table-info2">
         <?php
         $from = $total_rows === 0 ? 0 : $offset + 1;
         $to = min($offset + $per_page, $total_rows);
         echo "Menampilkan {$from}–{$to} dari {$total_rows} data";
         ?>
     </p>
+    <!-- End of Info Table -->
 
     <!-- Pagination -->
     <?php if ($total_pages > 1): ?>
-        <div class="flex flex-wrap gap-2">
+        <div class="pagination-wrap">
 
-            <!-- Prev -->
             <?php if ($page > 1): ?>
-                <a href="<?= page_url(['page' => $page - 1]) ?>"
-                    class="px-3.5 py-2 border-2 border-black rounded-md text-sm font-bold bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,0.15)] hover:shadow-[2px_2px_0px_#E8715A] transition-all duration-200 no-underline">
+                <a href="<?= page_url(['page' => $page - 1]) ?>" class="page-btn">
                     ‹
                 </a>
             <?php else: ?>
-                <span
-                    class="px-3.5 py-2 border-2 border-black rounded-md text-sm font-bold bg-white text-black opacity-40 cursor-not-allowed">‹</span>
+                <span class="page-btn page-btn-disabled">‹</span>
             <?php endif; ?>
 
-            <!-- Page numbers -->
             <?php
             $startP = max(1, $page - 2);
             $endP = min($total_pages, $startP + 4);
@@ -34,30 +30,26 @@
             for ($p = $startP; $p <= $endP; $p++):
                 ?>
                 <?php if ($p === $page): ?>
-                    <span
-                        class="page-btn-active px-3.5 py-2 border-2 border-black rounded-md text-sm font-bold cursor-default">
+                    <span class="page-btn page-btn-active">
                         <?= $p ?>
                     </span>
                 <?php else: ?>
-                    <a href="<?= page_url(['page' => $p]) ?>"
-                        class="px-3.5 py-2 border-2 border-black rounded-md text-sm font-bold bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,0.15)] hover:shadow-[2px_2px_0px_#E8715A] transition-all duration-200 no-underline">
+                    <a href="<?= page_url(['page' => $p]) ?>" class="page-btn">
                         <?= $p ?>
                     </a>
                 <?php endif; ?>
             <?php endfor; ?>
 
-            <!-- Next -->
             <?php if ($page < $total_pages): ?>
-                <a href="<?= page_url(['page' => $page + 1]) ?>"
-                    class="px-3.5 py-2 border-2 border-black rounded-md text-sm font-bold bg-white text-black shadow-[2px_2px_0px_rgba(0,0,0,0.15)] hover:shadow-[2px_2px_0px_#E8715A] transition-all duration-200 no-underline">
+                <a href="<?= page_url(['page' => $page + 1]) ?>" class="page-btn">
                     ›
                 </a>
             <?php else: ?>
-                <span
-                    class="px-3.5 py-2 border-2 border-black rounded-md text-sm font-bold bg-white text-black opacity-40 cursor-not-allowed">›</span>
+                <span class="page-btn page-btn-disabled">›</span>
             <?php endif; ?>
 
         </div>
     <?php endif; ?>
+    <!-- End of Pagination -->
 
 </div>

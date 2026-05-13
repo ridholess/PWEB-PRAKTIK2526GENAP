@@ -5,10 +5,10 @@ function page_url(array $overrides = []): string
         'search' => $_GET['search'] ?? '',
         'sort' => $_GET['sort'] ?? 'nama',
         'dir' => $_GET['dir'] ?? 'asc',
-        'per_page' => $_GET['per_page'] ?? 10,
+        'per_page' => $_GET['per_page'] ?? 5,
         'page' => $_GET['page'] ?? 1,
     ], $overrides);
-    return 'index.php?' . http_build_query($params);
+    return 'dashboard.php?' . http_build_query($params);
 }
 
 function sort_url(string $col): string
